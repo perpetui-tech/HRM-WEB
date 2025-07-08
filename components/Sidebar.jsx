@@ -3,15 +3,36 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import {
-  FaHome, FaUsers, FaClipboard, FaSignOutAlt,
-  FaMoneyCheckAlt, FaCalendarAlt, FaFileAlt,
-  FaPlus, FaList, FaChevronDown, FaChevronRight
+  FaHome,
+  FaUserClock,
+  FaSignInAlt,
+  FaCalendarAlt,
+  FaEdit,
+  FaUmbrellaBeach,
+  FaRegCalendarCheck,
+  FaPlus,
+  FaMoneyBillWave,
+  FaReceipt,
+  FaList,
+  FaMoneyCheckAlt,
+  FaFileInvoiceDollar,
+  FaChartLine,
+  FaFolderOpen,
+  FaUpload,
+  FaFileAlt,
+  FaHeart,
+  FaThumbsUp,
+  FaCommentDots,
+  FaClipboardList,
+  FaTasks,
+  FaClipboardCheck,
+  FaSignOutAlt,FaTimes ,FaChevronRight ,FaChevronDown 
 } from 'react-icons/fa';
 
 import { AppConfig } from '../lib/config';
 import { useState } from 'react';
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, toggleSidebar }) => {
   const [openSections, setOpenSections] = useState({});
 
   useEffect(() => {
@@ -59,70 +80,118 @@ const Sidebar = () => {
   );
 
   return (
-    <aside className="w-64 h-screen fixed bg-[var(--sidebar-bg)] text-[var(--sidebar-text)] shadow border-r z-50 flex flex-col">
-        <div className="p-5 border-b">
-            <div className="flex items-center gap-3 mb-4">
-                <img src={AppConfig.smLogo} alt="Logo" className="w-10 h-10 object-contain" />
-                <span className="text-lg font-bold text-[var(--primary-color)]">{AppConfig.companyName}</span>
-            </div>
-            <div className="flex items-center gap-3">
-                <img src={AppConfig.logo} alt="User" className="w-10 h-10 rounded-full border object-cover" />
-                <div className="flex flex-col">
-                    <span className="text-sm font-semibold">Hi, User</span>
-                    <Link href="/profile" className="text-xs text-[var(--primary-color)] hover:underline">View My Info</Link>
-                </div>
-            </div>
+    <aside
+      className={`fixed top-0 left-0 h-full bg-[var(--sidebar-bg)] text-[var(--sidebar-text)] shadow-lg z-50 w-64 flex flex-col transform transition-transform duration-300 lg:translate-x-0 ${
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}
+    >
+      {/* Close Button for Mobile */}
+      <div className="lg:hidden flex justify-end p-3">
+        <button onClick={toggleSidebar} className="text-white text-lg">
+          <FaTimes />
+        </button>
+      </div>
+
+      {/* Sidebar Content */}
+      <div className="p-5 border-b">
+        <div className="flex items-center gap-3 mb-4">
+          <img src={AppConfig.smLogo} alt="Logo" className="w-10 h-10 object-contain" />
+          <span className="text-lg font-bold text-[var(--primary-color)]">
+            {AppConfig.companyName}
+          </span>
         </div>
-
-        <nav className="flex-1 overflow-y-auto px-4 py-5 space-y-3 text-sm sidebar-scroll">
-            <Link href="/dashboard" className="flex items-center gap-3 px-3 py-2 rounded hover:bg-white/10 hover:text-[var(--primary-color)]">
-            <FaHome /> Dashboard
+        <div className="flex items-center gap-3">
+          <img src={AppConfig.logo} alt="User" className="w-10 h-10 rounded-full border object-cover" />
+          <div className="flex flex-col">
+            <span className="text-sm font-semibold">Hi, User</span>
+            <Link href="/profile" className="text-xs text-[var(--primary-color)] hover:underline">
+              View My Info
             </Link>
+          </div>
+        </div>
+      </div>
 
-            <AccordionSection
-            label="My Worklife"
-            icon={FaUsers}
-            links={[
-                { href: "/worklife/add", icon: <FaPlus />, label: "Kudos" },
-                { href: "/worklife/list", icon: <FaList />, label: "Feedback" },
-            ]}
-            />
-            <AccordionSection
-            label="To Do"
-            icon={FaClipboard}
-            links={[
-                { href: "/todo/add", icon: <FaPlus />, label: "Tasks" },
-                { href: "/todo/list", icon: <FaList />, label: "Review" },
-            ]}
-            />
-            <AccordionSection
-            label="Salary"
-            icon={FaMoneyCheckAlt}
-            links={[
-                { href: "/salary/add", icon: <FaPlus />, label: "Payslip" },
-                { href: "/salary/list", icon: <FaList />, label: "YTD Reports" },
-            ]}
-            />
-            <AccordionSection
-            label="Leave"
-            icon={FaCalendarAlt}
-            links={[
-                { href: "/leave/apply", icon: <FaPlus />, label: "Leave Apply" },
-                { href: "/leave/calendar", icon: <FaList />, label: "Leave Calendar" },
-            ]}
-            />
-            <AccordionSection
-            label="Document Center"
-            icon={FaFileAlt}
-            links={[
-                { href: "/documents/add", icon: <FaPlus />, label: "Add" },
-                { href: "/documents/list", icon: <FaList />, label: "List View" },
-            ]}
-            />
-            <Link href="/logout" className="flex items-center gap-3 text-red-500 px-3 py-2 rounded hover:bg-red-100">
-            <FaSignOutAlt /> Sign Out
-            </Link>
-        </nav>
+      <nav className="flex-1 overflow-y-auto px-4 py-5 space-y-3 text-sm sidebar-scroll">
+        {/* Dashboard */}
+        <Link href="/dashboard" className="flex items-center gap-3 px-3 py-2 rounded hover:bg-white/10 hover:text-[var(--primary-color)]">
+          <FaHome /> Dashboard
+        </Link>
+
+        {/* Attendance */}
+        <AccordionSection
+          label="Attendance"
+          icon={FaUserClock}
+          links={[
+            { href: "/checkin", icon: <FaSignInAlt />, label: "Check-in/Check-out" },
+            { href: "/attendance/calendar", icon: <FaCalendarAlt />, label: "Attendance Calendar" },
+            { href: "/attendance/regularize", icon: <FaEdit />, label: "Regularization Request" },
+          ]}
+        />
+
+        {/* Leave */}
+        <AccordionSection
+          label="Leave"
+          icon={FaUmbrellaBeach}
+          links={[
+            { href: "/leave/apply", icon: <FaPlus />, label: "Leave Apply" },
+          ]}
+        />
+
+        {/* Expense */}
+        <AccordionSection
+          label="Expense"
+          icon={FaMoneyBillWave}
+          links={[
+            { href: "/expense/claims", icon: <FaReceipt />, label: "Expense Apply" },
+          ]}
+        />
+
+        {/* Salary */}
+        <AccordionSection
+          label="Salary"
+          icon={FaMoneyCheckAlt}
+          links={[
+            { href: "/salary/payslips", icon: <FaFileInvoiceDollar />, label: "Payslip" },
+            { href: "/salary/list", icon: <FaChartLine />, label: "YTD Reports" },
+          ]}
+        />
+
+        {/* Document Center */}
+        <AccordionSection
+          label="Document Center"
+          icon={FaFolderOpen}
+          links={[
+            { href: "/documents/add", icon: <FaUpload />, label: "Add" },
+            { href: "/documents/list", icon: <FaFileAlt />, label: "List View" },
+          ]}
+        />
+
+        {/* My Worklife */}
+        <AccordionSection
+          label="My Worklife"
+          icon={FaHeart}
+          links={[
+            { href: "/worklife/add", icon: <FaThumbsUp />, label: "Kudos" },
+            { href: "/worklife/list", icon: <FaCommentDots />, label: "Feedback" },
+          ]}
+        />
+
+        {/* To Do */}
+        <AccordionSection
+          label="To Do"
+          icon={FaClipboardList}
+          links={[
+            { href: "/todo/add", icon: <FaTasks />, label: "Tasks" },
+            { href: "/todo/list", icon: <FaClipboardCheck />, label: "Review" },
+          ]}
+        />
+
+        {/* Sign Out */}
+        <Link href="/logout" className="flex items-center gap-3 text-red-500 px-3 py-2 rounded hover:bg-red-100">
+          <FaSignOutAlt /> Sign Out
+        </Link>
+      </nav>
+
     </aside>
   );
 };
