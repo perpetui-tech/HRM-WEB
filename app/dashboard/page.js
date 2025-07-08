@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import Sidebar from '../../components/Sidebar';
 import withAuth from '../../hoc/withAuth';
+import Layout from '@/components/Layout';
 
 import {
   FaUsers,
@@ -45,12 +45,10 @@ const cardData = [
   },
 ];
 
-
 const DashboardLayout = () => {
   return (
-    <div className="flex min-h-screen">
-      <Sidebar />
-      <main className="ml-64 w-full min-h-screen bg-[var(--background-color)] p-6 text-[var(--text-color)] font-[var(--font)] font-[var(--font-weight)]">
+    <Layout>
+      <main className="w-full min-h-screen bg-[var(--background-color)] p-6 text-[var(--text-color)] font-[var(--font)] font-[var(--font-weight)]">
         {/* Welcome Box */}
         <div className="bg-white shadow-md rounded-2xl p-8 max-w-4xl mx-auto mb-10">
           <h1 className="text-3xl font-bold mb-2 text-[var(--primary-color)]">Welcome!</h1>
@@ -77,9 +75,8 @@ const DashboardLayout = () => {
           ))}
         </div>
       </main>
-    </div>
+    </Layout>
   );
 };
-
 
 export default withAuth(DashboardLayout);

@@ -92,13 +92,12 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   --bodybg: #dcdefe;
-  --primary-color: #5138ee;
+  --primary-color: #F1F5F9;
   --hover-bg: #f5faff; /* lightest blue */
-  --font: 'Montserrat', sans-serif;
-  --font-weight: 500;
+  --font: 'Montserrat', 'sans-serif';
+  --font-weight: 400;
 
-  --text-color: #00ab75;
-  --primary-color: #00ab75;
+  --text-color: #1F2937;
   --background-color: #131836;
 
   --sidebar-bg: var(--background-color);
