@@ -134,6 +134,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           icon={FaUmbrellaBeach}
           links={[
             { href: "/leave/apply", icon: <FaPlus />, label: "Leave Apply" },
+            { href: "/holiday/list", icon: <FaPlus />, label: "Holiday Lists" },
           ]}
         />
 
