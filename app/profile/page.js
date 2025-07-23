@@ -13,33 +13,36 @@ import {
   FaLock,
   FaCamera,
 } from "react-icons/fa";
-import { callApi } from '../../lib/api';
+import { callFetchApi } from '../../lib/api';
 
 export default function ProfileUpdate() {
   const [profileDetails, setProfileDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [list, setList] = useState("");
+  const [item, setItem] = useState({
+    f_name : "ABC",
+    l_name : "123",
+    age : 30,
+    address : "33A, Jewharlal Neheru Road, Kolkata, PIN-700045, West Bengal, West Bengal, India",
+    avatar : "user-imaage.png"
+  });
 
-   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    const testToken = "bcf4b18920f12116ac2b64bb0f58cc27c03534b6b43c0ffb0873296ae78b0dbd";
-    if (!storedToken) {
-      localStorage.setItem("token", testToken);
-      setToken(testToken);
-    } else {
-      setToken(storedToken);
-    }
-  }, []);
-
-  // Fetch profile
   useEffect(() => {
-    if (!token) return;
+    const storedToken = localStorage.getItem("token");
+    const finalToken = storedToken || "bcf4b18920f12116ac2b64bb0f58cc27c03534b6b43c0ffb0873296ae78b0dbd";
+
+    if (!storedToken) {
+      localStorage.setItem("token", finalToken);
+    }
+
+
+    setToken(finalToken);
 
     const fetchProfile = async () => {
       try {
-        const res = await callApi("/my-profile", "GET", null, token);
-        console.log('res', res);
+        const res = await callFetchApi("/my-profile", "GET", null, finalToken);
         if (res.status === 1) {
           setProfileDetails(res.data);
         } else {
@@ -51,9 +54,10 @@ export default function ProfileUpdate() {
         setLoading(false);
       }
     };
-    
+
     fetchProfile();
-  }, [token]);
+  }, []);
+
 
   return (
     <Layout>
@@ -62,9 +66,8 @@ export default function ProfileUpdate() {
         <div
           className="relative rounded-xl h-32 sm:h-40 mb-20"
           style={{
-            background: `linear-gradient(to right, oklch(0.696 0.17 162.48), oklch(0.696 0.15 172))`,
-          }}
-        >
+            background: `linear-gradient(to right, #0e1738, oklch(0.696 0.17 162.48), oklch(0.696 0.15 172))`,
+          }} >
           <div className="absolute bottom-[-2.5rem] left-6">
             <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-4 border-white shadow-lg">
               <img

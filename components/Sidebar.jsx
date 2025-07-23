@@ -1,6 +1,6 @@
-'use client';
-
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import Link from 'next/link';
 import {
   FaHome,
@@ -28,9 +28,7 @@ import {
   FaClipboardCheck,
   FaSignOutAlt,FaTimes ,FaChevronRight ,FaChevronDown 
 } from 'react-icons/fa';
-
 import { AppConfig } from '../lib/config';
-import { useState } from 'react';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const [openSections, setOpenSections] = useState({});
@@ -43,6 +41,35 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     root.style.setProperty('--font', AppConfig.fontFamily);
     root.style.setProperty('--font-weight', AppConfig.fontWeight);
   }, []);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    // Apply CSS variables
+    const root = document.documentElement;
+    root.style.setProperty('--primary-color', AppConfig.themeColor);
+    root.style.setProperty('--background-color', AppConfig.themeBackground);
+    root.style.setProperty('--text-color', AppConfig.textColor);
+    root.style.setProperty('--font', AppConfig.fontFamily);
+    root.style.setProperty('--font-weight', AppConfig.fontWeight);
+
+    // Prefetch important routes
+    router.prefetch('/dashboard');
+    router.prefetch('/checkin');
+    router.prefetch('/attendance/calendar');
+    router.prefetch('/attendance/regularize');
+    router.prefetch('/leave/apply');
+    router.prefetch('/holiday/list');
+    router.prefetch('/expense/claims');
+    router.prefetch('/salary/payslips');
+    router.prefetch('/salary/list');
+    router.prefetch('/documents/add');
+    router.prefetch('/documents/list');
+    router.prefetch('/worklife/add');
+    router.prefetch('/worklife/list');
+    router.prefetch('/todo/add');
+    router.prefetch('/todo/list');
+  }, [router]);
 
   const toggleSection = (label) => {
     setOpenSections((prev) => ({
@@ -68,7 +95,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <Link
               key={i}
               href={link.href}
-              className="flex items-center gap-2 px-2 py-1 rounded hover:bg-white/10 hover:text-[var(--primary-color)]"
+              className="flex items-center gap-2 px-2 py-1 rounded hover:bg-[var(--primary-color)/10] hover:text-[var(--primary-color)]"
             >
               {link.icon}
               <span>{link.label}</span>
@@ -87,18 +114,26 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     >
       {/* Close Button for Mobile */}
       <div className="lg:hidden flex justify-end p-3">
-        <button onClick={toggleSidebar} className="text-white text-lg">
+        <button onClick={toggleSidebar} className="text-green text-lg">
           <FaTimes />
         </button>
       </div>
 
       {/* Sidebar Content */}
       <div className="p-5 border-b">
-        <div className="flex items-center gap-3 mb-4">
-          <img src={AppConfig.smLogo} alt="Logo" className="w-10 h-10 object-contain" />
-          <span className="text-lg font-bold text-[var(--primary-color)]">
+        <div className="flex items-center gap-3 mb-4 bg-[#0e1738]">
+          <Image
+            src={AppConfig.logo}
+            alt="Logo"
+            width={150}
+            height={150}
+            color='black'
+            className="w-80 h-15 object-contain"
+            priority
+          />
+          {/* <span className="text-lg font-bold text-[var(--primary-color)]">
             {AppConfig.companyName}
-          </span>
+          </span> */}
         </div>
         <div className="flex items-center gap-3">
           <img src={AppConfig.logo} alt="User" className="w-10 h-10 rounded-full border object-cover" />
@@ -113,7 +148,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
       <nav className="flex-1 overflow-y-auto px-4 py-5 space-y-3 text-sm sidebar-scroll">
         {/* Dashboard */}
-        <Link href="/dashboard" className="flex items-center gap-3 px-3 py-2 rounded hover:bg-white/10 hover:text-[var(--primary-color)]">
+        <Link href="/dashboard" className="flex items-center gap-3 px-3 py-2 rounded hover:bg-[var(--primary-color)/10] hover:text-[var(--primary-color)]">
           <FaHome /> Dashboard
         </Link>
 

@@ -22,6 +22,7 @@ export default function SwiperSlider({ urls }) {
               src={url}
               alt={`slide-${index}`}
               className="w-full h-full object-cover"
+              loading="lazy" 
             />
           </SwiperSlide>
         ))}
