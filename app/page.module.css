@@ -150,3 +150,18 @@
 .swiper-container {
   height: 100% !important;
 }
+
+/* Tailwind compatible override */
+.selected-date {
+  background-color: #2563eb !important;
+  color: white !important;
+  border-radius: 100% !important;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.react-calendar__tile:enabled:hover {
+  background-color: #f0f4ff;
+  border-radius: 100%;
+}
+

@@ -11,8 +11,6 @@ const withAuth = (WrappedComponent, redirectPath = '/') => {
     
     useEffect(() => {
         const token = localStorage.getItem('authToken'); 
-
-        localStorage.setItem('authToken', '456454465465')
         if (!token) {
             router.push(redirectPath);
         } else {

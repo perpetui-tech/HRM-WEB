@@ -1,56 +1,67 @@
 'use client';
 
 import React from 'react';
-import Sidebar from '../../components/Sidebar';
 import withAuth from '../../hoc/withAuth';
-
+import Layout from '@/components/Layout';
 import {
-  FaUsers,
-  FaClipboard,
+  FaUserClock,
+  FaUmbrellaBeach,
+  FaMoneyBillWave,
   FaMoneyCheckAlt,
-  FaCalendarAlt,
-  FaFileAlt,
+  FaFolderOpen,
+  FaHeart,
+  FaClipboardList,
 } from 'react-icons/fa';
 
 const cardData = [
   {
-    title: 'My Worklife',
-    icon: <FaUsers className="text-2xl text-[var(--primary-color)]" />,
-    description: 'View kudos and feedback shared across the organization.',
-    link: '/worklife/list',
+    title: 'Attendance',
+    icon: <FaUserClock className="text-2xl text-[var(--primary-color)]" />,
+    description: 'Check-in/out and view your attendance calendar.',
+    link: '/checkin',
   },
   {
-    title: 'To Do',
-    icon: <FaClipboard className="text-2xl text-[var(--primary-color)]" />,
-    description: 'Keep track of your assigned tasks and reviews.',
-    link: '/todo/list',
+    title: 'Leave',
+    icon: <FaUmbrellaBeach className="text-2xl text-[var(--primary-color)]" />,
+    description: 'Apply for leave and see holiday lists.',
+    link: '/leave/apply',
+  },
+  {
+    title: 'Expense',
+    icon: <FaMoneyBillWave className="text-2xl text-[var(--primary-color)]" />,
+    description: 'Submit expense claims and track approvals.',
+    link: '/expense/claims',
   },
   {
     title: 'Salary',
     icon: <FaMoneyCheckAlt className="text-2xl text-[var(--primary-color)]" />,
-    description: 'Check payslips, YTD reports and salary insights.',
+    description: 'Download payslips and view YTD reports.',
     link: '/salary/list',
   },
   {
-    title: 'Leave',
-    icon: <FaCalendarAlt className="text-2xl text-[var(--primary-color)]" />,
-    description: 'Apply for leave and check holiday calendars.',
-    link: '/leave/calendar',
+    title: 'Document Center',
+    icon: <FaFolderOpen className="text-2xl text-[var(--primary-color)]" />,
+    description: 'Upload and manage your important documents.',
+    link: '/documents/list',
   },
   {
-    title: 'Document Center',
-    icon: <FaFileAlt className="text-2xl text-[var(--primary-color)]" />,
-    description: 'Upload, view and manage important documents.',
-    link: '/documents/list',
+    title: 'My Worklife',
+    icon: <FaHeart className="text-2xl text-[var(--primary-color)]" />,
+    description: 'Give kudos and share feedback with peers.',
+    link: '/worklife/list',
+  },
+  {
+    title: 'To Do',
+    icon: <FaClipboardList className="text-2xl text-[var(--primary-color)]" />,
+    description: 'View and review your pending tasks.',
+    link: '/todo/list',
   },
 ];
 
-
 const DashboardLayout = () => {
   return (
-    <div className="flex min-h-screen">
-      <Sidebar />
-      <main className="ml-64 w-full min-h-screen bg-[var(--background-color)] p-6 text-[var(--text-color)] font-[var(--font)] font-[var(--font-weight)]">
+    <Layout>
+      <main className="w-full min-h-screen bg-[var(--background-color)] p-6 text-[var(--text-color)] font-[var(--font)] font-[var(--font-weight)]">
         {/* Welcome Box */}
         <div className="bg-white shadow-md rounded-2xl p-8 max-w-4xl mx-auto mb-10">
           <h1 className="text-3xl font-bold mb-2 text-[var(--primary-color)]">Welcome!</h1>
@@ -77,9 +88,8 @@ const DashboardLayout = () => {
           ))}
         </div>
       </main>
-    </div>
+    </Layout>
   );
 };
-
 
 export default withAuth(DashboardLayout);
